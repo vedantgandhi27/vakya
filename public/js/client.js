@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initial messages
-  
+
 
   append("Welcome to Vakya", "System");
   append("Innovation in new", "System");
@@ -79,4 +79,33 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("user-left", (name) => {
     append(`${name} has left the chat`, "System");
   });
+
+
+  const typingIndicator = document.getElementById("typingIndicator");
+
+let typingTimeout;
+let isTyping = false;
+
+messageInput.addEventListener("input", () => {
+  if (!isTyping) {
+    isTyping = true;
+    socket.emit("typing");
+  }
+
+  clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(() => {
+    isTyping = false;
+    socket.emit("stop typing");
+  }, 1500);
+});
+
+socket.on("typing", (username) => {
+  typingIndicator.textContent = `${username} is typing...`;
+});
+
+socket.on("stop typing", () => {
+  typingIndicator.textContent = "";
+});
+
+
 });

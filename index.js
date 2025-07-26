@@ -49,6 +49,17 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on('typing', () => {
+  const username = users[socket.id];
+  if (username) {
+    socket.broadcast.emit('typing', username);
+  }
+    });
+
+    socket.on('stop typing', () => {
+  socket.broadcast.emit('stop typing');
+});
+
   // Runs when user disconnects
   socket.on("disconnect", () => {
     if (users[socket.id]) {
@@ -57,6 +68,9 @@ io.on("connection", (socket) => {
       delete users[socket.id];
     }
   });
+
+    // Initial message setup
+
 });
 
 // Starts the server

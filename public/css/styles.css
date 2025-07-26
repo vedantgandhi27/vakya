@@ -132,6 +132,21 @@ display: block;
   transform: scale(1.05);
 }
 
+
+.typing-indicator {
+  font-style: italic;
+  color: rgb(4, 120, 197);
+  min-height: 1.5em; /* reserve some space */
+  margin: 0.3em auto 0 auto;
+  width: 50vw;
+  text-align: left;
+  padding-left: 1em;
+  user-select: none;
+  pointer-events: none;
+  font-size: 1.2rem;
+}
+
+
 /* Responsivness */
 
     @media only screen and (max-width: 640px) {
