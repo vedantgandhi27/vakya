@@ -8,48 +8,58 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
-const users = {}; // Store socket.id => username
-
-// Setup Handlebars view engine
+//  Handlebars setup
 app.engine("hbs", exphbs.engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
-// Serve public static files
+// Static files reference
 app.use(express.static(path.join(__dirname, "public")));
 
-// Render home.hbs
+// Homepage route
 app.get("/", (req, res) => {
-  console.log("Serving homepage 🚀");
-  res.render("home");
+  res.render("home"); 
 });
 
-// Socket.IO events
-io.on("connection", (socket) => {
-  console.log("✅ A user connected:", socket.id);
+// Stores connected users
+const users = {};
 
+io.on("connection", (socket) => {
+  console.log("📡 New connection:", socket.id);
+
+  // Notifies new user when joined
   socket.on("new-user-joined", (username) => {
     users[socket.id] = username;
     socket.broadcast.emit("user-joined", username);
+
+    // Notify partner
+    const otherUsers = Object.entries(users).filter(([id]) => id !== socket.id);
+    if (otherUsers.length > 0) {
+      const [otherSocketId, otherName] = otherUsers[0];
+      socket.emit("partner-found", otherName);
+      io.to(otherSocketId).emit("partner-found", username);
+    }
   });
 
+  // Runs when user sends a message
   socket.on("send", (message) => {
-   const name = users[socket.id] || "Anonymous"; // fallback name
-    //  console.log(`📩 Message from ${name}: ${message}`);
-  socket.broadcast.emit("receive", {
-    message: message,
-    name: name
+    socket.broadcast.emit("receive", {
+      message: message,
+      name: users[socket.id],
     });
   });
 
+  // Runs when user disconnects
   socket.on("disconnect", () => {
-    console.log("User disconnected:", users[socket.id]);
-    delete users[socket.id];
+    if (users[socket.id]) {
+      socket.broadcast.emit("user-left", users[socket.id]);
+      console.log("❌ Disconnected:", users[socket.id]);
+      delete users[socket.id];
+    }
   });
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+// Starts the server
+httpServer.listen(3000, () => {
+  console.log("✅ Server running at http://localhost:3000");
 });

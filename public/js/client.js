@@ -1,56 +1,82 @@
-const socket = io(); // auto-connect to current origin
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("🔥 client.js is running!");
 
-const form = document.getElementById("send-container");
-const messageInput = document.getElementById("messageInp");
-const messageContainer = document.querySelector(".container");
+  const socket = io();
 
-// Function to append message bubbles
-const append = (message, position, sender = "") => {
-  const messageElement = document.createElement("div");
-  messageElement.classList.add("message", position);
+  const form = document.getElementById("send-container");
+  const messageInput = document.getElementById("messageInp");
+  const messageContainer = document.querySelector(".container");
 
-  // Sender Name
-  if (sender) {
-    const senderElement = document.createElement("div");
-    senderElement.classList.add("sender");
-    senderElement.innerText = sender;
-    messageElement.appendChild(senderElement);
+  const currentUsername = prompt("Let us know, who you are?").toUpperCase();
+  socket.emit("new-user-joined", currentUsername);
+
+
+    // Map to store user colors and toggle for alternating colors
+
+  let userColorMap = {};
+  let userColorToggle = 0;
+
+
+  function append(msg, sender) {
+    const div = document.createElement("div");
+
+    if (!userColorMap[sender]) {
+      userColorMap[sender] =
+        sender === "System"
+          ? "default-user"
+          : userColorToggle === 0
+          ? "green-user"
+          : "blue-user";
+      userColorToggle = 1 - userColorToggle;
+    }
+    const colorClass = userColorMap[sender];
+    const position = sender === currentUsername ? "left" : "right";
+
+    div.classList.add("message", position, colorClass);
+
+    const time = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    div.innerHTML = `
+      <div class="sender">${sender}</div>
+      <div class="text">${msg}</div>
+      <div class="timestamp">${time}</div>
+    `;
+
+    messageContainer.appendChild(div);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
   }
 
-  // Message Text
-  const textElement = document.createElement("div");
-  textElement.classList.add("text");
-  textElement.innerText = message;
-  messageElement.appendChild(textElement);
+  // Initial messages
+  
 
-  // Add message to container
-  messageContainer.appendChild(messageElement);
-  messageContainer.scrollTop = messageContainer.scrollHeight; // scroll to bottom
-};
+  append("Welcome to Vakya", "System");
+  append("Innovation in new", "System");
 
-// Ask for username and notify server
-const username = prompt("Let us know, who you are?");
-socket.emit("new-user-joined", username);
-
-// When user sends a message
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const message = messageInput.value.trim();
-  if (message !== "") {
-    append(message, "right", "You");
-    socket.emit("send", message);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const msg = messageInput.value.trim();
+    if (!msg) return;
+    append(msg, currentUsername);
+    socket.emit("send", msg);
     messageInput.value = "";
-  }
-});
+  });
 
-// When a new user joins
-socket.on("user-joined", (name) => {
-  append(`${name} joined the chat`, "left");
-});
+  socket.on("receive", (data) => {
+    append(data.message, data.name);
+  });
 
-// When receiving a message
-socket.on("receive", (data) => {
-  append(data.message, "left", data.name);
-});
+  socket.on("user-joined", (name) => {
+    append(`${name} joined the chat`, "System");
+  });
 
-console.log("📡 Client-side JS loaded");
+  socket.on("partner-found", (partnerName) => {
+    append(`You are now chatting with: ${partnerName}`, "System");
+  });
+
+  socket.on("user-left", (name) => {
+    append(`${name} has left the chat`, "System");
+  });
+});

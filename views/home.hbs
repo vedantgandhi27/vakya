@@ -1,4 +1,3 @@
-
 <video width="320" height="240" id="bgvideo" autoplay muted loop>
   <source src="/Video/background-video-loop.mp4" type="video/mp4" />
 </video>
@@ -7,14 +6,17 @@
   <img class="logo" src="/Images/Logo-removeBG.png" alt="Logo" />
 </nav>
 
-<div class="container">
-  <div class="message right">Welcome to Vakya</div>
-  <div class="message left">Innovation in new</div>
+<div class="container" id="message-container">
+  <!-- Messages will be dynamically inserted here by client.js -->
 </div>
 
 <div class="send">
   <form action="#" id="send-container">
-    <input type="text" name="messageInp" id="messageInp" />
+    <input type="text" name="messageInp" id="messageInp" placeholder="Type your message..." />
     <button class="btn" type="submit">Speak</button>
   </form>
 </div>
+
+<!-- Socket.IO and client-side JS -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="/client.js" defer></script>

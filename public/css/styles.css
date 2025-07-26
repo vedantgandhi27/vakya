@@ -7,32 +7,41 @@
   object-fit: cover;
   z-index: -1;
 }
+
 .logo {
   display: block;
   margin: auto;
-  height: 250px;
+  height: 14em;
   width: auto;
+  filter: drop-shadow(4px 4px 6px rgb(13, 13, 13));
 }
+
 .container {
-  max-width: 995px;
-  background-color: transparent;
-  margin: auto;
-  height: 500px;
-  overflow-y: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    width: 50vw;
+    margin: auto;
+    height: 45vh;
+    overflow-y: auto;
+    padding: 1em;
 }
 
 .message {
-  background-color: rgb(197, 164, 164);
-  width: 24%;
-  padding: 10px;
-  margin: 17px 12px;
-  border: 2px solid purple;
-  border-radius: 10px;
+    min-width: 10em;
+    padding: 0.5em 2.5em;
+    margin: 0.5em;
+    border-radius: 5em;
+    border: 2px solid #ccc;
+    clear: both;
+    position: relative;
+    word-wrap: break-word;
+    background-color: white;
+    box-shadow: 3px 4px 9px 0px #17272c;
 }
 
+/* Alignments */
 .left {
   float: left;
-  clear: both;
 }
 
 .right {
@@ -40,46 +49,82 @@
   clear: both;
 }
 
+/* Font styling */
+.sender {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin : 0.5px;
+  color: #222;
+}
+
+.text {
+  font-size: 1.15rem;
+    padding-left: 1em;
+}
+
+.timestamp {
+    font-size: 0.75rem;
+    color: #555;
+    float: right;
+    bottom: 6px;
+    left: 97%;
+    padding-top: 0.5em;
+
+}
+    
+/* Colors per user */
+
+
+    .green-user {
+  background-color: #d1e7dd;
+  border-color: #0f5132;
+}
+
+.blue-user {
+  background-color: #cfe2ff;
+  border-color: #084298;
+}
+
+.default-user {
+  background-color: #f8f9fa;
+  border-color: #6c757d;
+}
+
+/* Send box */
 #send-container {
-  display: block;
-  text-align: center;
-  margin: auto;
-  max-width: 985px;
-  width: 100%;
+display: block;
+    text-align: center;
+    margin: auto;
+    max-width: 80vw;
+    width: 100%;
+    padding: 1em;
 }
 
 #messageInp {
-  width: 92%;
-  border: 2px solid purple;
-  border-radius: 6px;
-  height: 34px;
+    width: 80vw;
+    border: 2px solid purple;
+    border-radius: 5em;
+    height: 2em;
+    font-size: 1rem;
+    padding: 0.3em;
 }
 
 .btn {
-  background: linear-gradient(to right, #6a11cb, #2575fc);
-  color: white;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 999px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    padding: 1em 3em;
+    border: none;
+    border-radius: 5em;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 1.5em;
 }
 
 .btn:hover {
   background: linear-gradient(to right, orange, yellow);
   color: #000;
   transform: scale(1.05);
-}
-
-.sender {
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: #333;
-}
-
-.text {
-  padding-left: 5px;
 }
