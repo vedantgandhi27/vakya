@@ -1,4 +1,4 @@
-#bgvideo {
+.bgvideo {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,11 +9,12 @@
 }
 
 .logo {
-  display: block;
-  margin: auto;
-  height: 14em;
-  width: auto;
-  filter: drop-shadow(4px 4px 6px rgb(13, 13, 13));
+    display: block;
+    margin: auto;
+    height: 10em;
+    width: auto;
+    padding: 1.5em;
+    filter: drop-shadow(4px 4px 6px rgb(13, 13, 13));
 }
 
 .container {
@@ -40,6 +41,8 @@
 }
 
 /* Alignments */
+
+
 .left {
   float: left;
 }
@@ -75,7 +78,7 @@
 /* Colors per user */
 
 
-    .green-user {
+.green-user {
   background-color: #d1e7dd;
   border-color: #0f5132;
 }
@@ -128,3 +131,31 @@ display: block;
   color: #000;
   transform: scale(1.05);
 }
+
+/* Responsivness */
+
+    @media only screen and (max-width: 640px) {
+
+        .logo {
+            height: 8em;
+        }
+
+        .sender {
+        
+            font-size: 0.95em;
+        }    
+
+        .text {
+            font-size: 1em;
+        }
+        .message {
+            padding: 0.5em 1.5em;
+            font-size: 0.9em;
+        }
+
+        .container {
+            width: 85vw;
+            height: 48vh;
+        }
+
+    }
