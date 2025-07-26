@@ -9,6 +9,21 @@
   },
   "keywords": [],
   "author": "",
+  "contributors": [
+    {
+      "name": "Abhishek Sharma"
+    },
+    {
+      "name": "Vedant Ketan Gandhi"
+    }
+    ,
+    {
+      "name": "Mahmoud Saheli"
+    },
+    {
+      "name": "Rishank Naineshkumar Desai"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
