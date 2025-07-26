@@ -11,9 +11,9 @@
 .logo {
     display: block;
     margin: auto;
-    height: 10em;
+    height: 9em;
     width: auto;
-    padding: 1.5em;
+    padding: 0.5em;
     filter: drop-shadow(4px 4px 6px rgb(13, 13, 13));
 }
 
