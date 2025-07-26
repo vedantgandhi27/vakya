@@ -1,0 +1,85 @@
+#bgvideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+.logo {
+  display: block;
+  margin: auto;
+  height: 250px;
+  width: auto;
+}
+.container {
+  max-width: 995px;
+  background-color: transparent;
+  margin: auto;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.message {
+  background-color: rgb(197, 164, 164);
+  width: 24%;
+  padding: 10px;
+  margin: 17px 12px;
+  border: 2px solid purple;
+  border-radius: 10px;
+}
+
+.left {
+  float: left;
+  clear: both;
+}
+
+.right {
+  float: right;
+  clear: both;
+}
+
+#send-container {
+  display: block;
+  text-align: center;
+  margin: auto;
+  max-width: 985px;
+  width: 100%;
+}
+
+#messageInp {
+  width: 92%;
+  border: 2px solid purple;
+  border-radius: 6px;
+  height: 34px;
+}
+
+.btn {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  background: linear-gradient(to right, orange, yellow);
+  color: #000;
+  transform: scale(1.05);
+}
+
+.sender {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.text {
+  padding-left: 5px;
+}
