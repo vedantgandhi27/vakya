@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("send-container");
   const messageInput = document.getElementById("messageInp");
   const messageContainer = document.querySelector(".container");
+  const clearChatBtn = document.getElementById("clearChatBtn");
 
   const currentUsername = prompt("Let us know, who you are?").toUpperCase();
   socket.emit("new-user-joined", currentUsername);
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+    // Typing indicator functionality
 const typingIndicator = document.getElementById("typingIndicator");
 
 let typingTimeout;
@@ -105,6 +107,31 @@ socket.on("typing", (username) => {
 socket.on("stop typing", () => {
   typingIndicator.textContent = "";
 });
+
+    // Clear chat functionality
+
+  clearChatBtn.addEventListener("click", () => {
+    const secretKey = prompt("Enter the secret key to clear chat:");
+
+    if (!secretKey) {
+      alert("Clear chat cancelled.");
+      return;
+    }
+
+    // Emit clear-chat event with secret key
+    socket.emit("clear-chat", { secretKey });
+  });
+
+    // Listen for clear-chat broadcast from server
+  socket.on("clear-chat", () => {
+    messageContainer.innerHTML = "";
+    if (typingIndicator) typingIndicator.textContent = "";
+  });
+
+  // Listen for error messages from server
+  socket.on("error-message", (msg) => {
+    alert(msg);
+  });
 
 
 });

@@ -112,6 +112,8 @@ display: block;
     padding: 0.3em;
 }
 
+    /* Submit button CSS */
+
 .btn {
     background: linear-gradient(to right, #6a11cb, #2575fc);
     color: white;
@@ -144,6 +146,29 @@ display: block;
   user-select: none;
   pointer-events: none;
   font-size: 1.2rem;
+}
+
+    /* Clear Button CSS */
+
+#clearChatBtn {
+background: linear-gradient(to right, #ff416b, #2575fc);
+    color: white;
+    padding: 1em 2.5em;
+    border: none;
+    border-radius: 5em;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 1.5em;
+    margin-left: 1em;
+}
+
+.clearChatBtn:hover {
+  background: linear-gradient(to right, ff416b, 2575fc);
+  color: #000;
+  transform: scale(1.05);
 }
 
 

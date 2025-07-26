@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const { createServer } = require("http");
@@ -49,6 +50,7 @@ io.on("connection", (socket) => {
     });
   });
 
+    // Runs when user is typing
   socket.on('typing', () => {
   const username = users[socket.id];
   if (username) {
@@ -68,6 +70,20 @@ io.on("connection", (socket) => {
       delete users[socket.id];
     }
   });
+
+    // Clear chat functionality
+  socket.on("clear-chat", (data) => {
+    const SECRET_KEY = process.env.CLEAR_CHAT_SECRET;
+
+    if (data && data.secretKey === SECRET_KEY) {
+      io.emit("clear-chat");
+      console.log(`Chat cleared by user ${socket.id}`);
+    } else {
+      socket.emit("error-message", "Unauthorized: Incorrect secret key.");
+      console.warn(`Unauthorized clear-chat attempt from user ${socket.id}`);
+    }
+  });
+
 
 
 });

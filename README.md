@@ -8,6 +8,7 @@ A simple real-time chat application built with Node.js, Express, Socket.io, and 
 - User join/leave notifications
 - Typing indicator to show when a user is typing
 - Live on Render
+- Clear Chat functionality access only with the administrator
 - Responsive UI
 - Background video as wallpaper
 
@@ -22,6 +23,7 @@ A simple real-time chat application built with Node.js, Express, Socket.io, and 
 - Handlebars
 - Socket.io
 - Render
+- dotenv
 
 ## Group Members
 
