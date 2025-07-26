@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   append("Welcome to Vakya", "System");
-  append("Innovation in new", "System");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -81,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  const typingIndicator = document.getElementById("typingIndicator");
+const typingIndicator = document.getElementById("typingIndicator");
 
 let typingTimeout;
 let isTyping = false;

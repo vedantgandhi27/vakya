@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 const users = {};
 
 io.on("connection", (socket) => {
-  console.log("📡 New connection:", socket.id);
+  console.log("New connection:", socket.id);
 
   // Notifies new user when joined
   socket.on("new-user-joined", (username) => {
@@ -64,16 +64,15 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     if (users[socket.id]) {
       socket.broadcast.emit("user-left", users[socket.id]);
-      console.log("❌ Disconnected:", users[socket.id]);
+      console.log("Disconnected:", users[socket.id]);
       delete users[socket.id];
     }
   });
 
-    // Initial message setup
 
 });
 
 // Starts the server
 httpServer.listen(3000, () => {
-  console.log("✅ Server running at http://localhost:3000");
+  console.log("Server running at http://localhost:3000");
 });
